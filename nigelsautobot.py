@@ -1,39 +1,37 @@
+# Generic modules to import
 from telegram.ext import Updater, InlineQueryHandler, CommandHandler
-import requests
 from datetime import date
 from datetime import timedelta
-import mysql.connector
-import config
+import locale
 
-covidData = ""
+# The below imports are all local
+from config import Config
+from dbconnector import DBConnector
+from const import Const
 
-covidArray = {}
+# Config and setup
+const = Const()
+config = Config()
+locale.setlocale(locale.LC_TIME, const.LOCALE)
 
-database = mysql.connector.connect(host=config.DBHOST,database=config.DBNAME,user=config.DBUSER,password=config.DBPASSWD)
-cursor = database.cursor()
 
-# Looks a bit ugly, but gets the info from the database and returns it.
 def getCovidDataForDate(compareDate):
-	dateStr = compareDate.strftime('%Y-%m-%d')
-	query = 'SELECT date,infected FROM dailyInfected WHERE date =\''+dateStr+'\''
-	cursor.execute(query)
-	result = cursor.fetchall()
-	if cursor.rowcount > 0:
-		return result[0][1]
-	else:
-		return 'nog niet bekend'
-
+	dateStr = compareDate.strftime(const.DATA_DATE_FORMAT)
+	dbconn = DBConnector()
+	return dbconn.getDailyInfected(dateStr)
+	
 def getCovidData(bot, update):
-  responseMessage = 'COVID-19 informatie voor '+date.today().strftime('%d-%m-%Y')+' voor Nederland:\n'
-  responseMessage += 'Het aantal nieuwe corona zieken gisteren gemeld was: ' + str(getCovidDataForDate(date.today() - timedelta(days=1)))
-  responseMessage += ', het aantal van vandaag is: '+str(getCovidDataForDate(date.today()))+'.'
+  responseMessage = const.INFECTED_MESSAGE_HEADER % date.today().strftime(const.INFECTED_MESSAGE_DATE_FORMAT)
+  infectedYesterday = str(getCovidDataForDate(date.today() - timedelta(days=1)))
+  infectedToday = str(getCovidDataForDate(date.today()))
+  responseMessage += const.INFECTED_MESSAGE % (infectedYesterday, infectedToday)
   chat_id = update.message.chat_id
   bot.send_message(chat_id=chat_id, text=responseMessage)
 
 def main():
     updater = Updater(config.BOT_KEY)
     dp = updater.dispatcher
-    dp.add_handler(CommandHandler('covid',getCovidData), True)
+    dp.add_handler(CommandHandler(const.TELEGRAM_COMMAND,getCovidData), True)
     updater.start_polling()
     updater.idle()
 

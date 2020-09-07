@@ -1,9 +1,9 @@
 import mysql.connector
-import config
+from config import Config
+from dbconnector import DBConnector
+config = Config()
 
-database = mysql.connector.connect(host=config.DBHOST,database=config.DBNAME,user=config.DBUSER,password=config.DBPASSWD)
-
-cursor = database.cursor()
+db = DBConnector()
 
 # Array containing create statements for tables.
 TABLES = {}
@@ -16,15 +16,7 @@ TABLES['dailyInfected'] = (
 
 for table_name in TABLES:
 	table_description = TABLES[table_name]
-	try:
-		print("Dropping table {} if it exists".format(table_name))
-		cursor.execute('DROP TABLE IF EXISTS '+str(table_name))
-		print("Creating table {}: ".format(table_name), end='')
-		cursor.execute(table_description)
-	except mysql.connector.Error as err:
-		print(err.msg)
-	else:
-		print("OK")
-
-cursor.close()
-database.close()
+	print("Dropping table %s if it exists" % format(table_name))
+	db.executeQuery('DROP TABLE IF EXISTS %s' % str(table_name))
+	print("Creating table %s " % format(table_name))
+	db.executeQuery(table_description)
