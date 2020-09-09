@@ -18,9 +18,6 @@ class Const:
 	# Snippet sent out when the amount of infected of today is not yet known
 	DATA_UNKNOWN = 'nog niet bekend'
 	
-	# Locale to format (language) the date by
-	LOCALE = 'nl_NL'
-	
 	# Message header, %s is the current date
 	INFECTED_MESSAGE_HEADER = 'COVID-19 informatie voor %s:\n'
 	
@@ -31,4 +28,12 @@ class Const:
 	INFECTED_MESSAGE = 'Het aantal nieuwe corona zieken gisteren gemeld was: %s, het aantal van vandaag is: %s'
 	
 	# The command to invoke the infected bod
-	TELEGRAM_COMMAND = 'covid'
+	TELEGRAM_COMMAND_COVID = 'covid'
+	
+	TELEGRAM_COMMAND_VERSION = 'version'
+	
+	# The bot version (for in messages or something)
+	BOT_VERSION = '0.4'
+	
+	# Message test for bot version
+	BOT_VERSION_TEXT = 'Nigel\'s auto bot version %s'

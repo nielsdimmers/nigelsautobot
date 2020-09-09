@@ -16,3 +16,9 @@ class Config:
 
 	# MYSQL Database name
 	DBNAME = '<DB NAME>'
+	
+	# Locale to format (language) the date by. Make sure the locale is installed on the pc you're running the bot.
+	LOCALE = 'nl_NL.UTF-8' # This setting has a default, but feel free to change it.
+	
+	# Good to have different on different environments
+	LOG_LEVEL = logging.INFO
