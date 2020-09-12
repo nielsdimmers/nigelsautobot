@@ -51,8 +51,9 @@ y = [] # infections
 logging.info('Gathering info for the graph')
 for i in range(config.GRAPH_LENGTH,-1,-1):
 	graphDate = date.today() - timedelta(days=i)
-	x.append(graphDate.strftime(const.GRAPH_DATE_FORMAT))
-	y.append(covidArray[graphDate.strftime(const.DATA_DATE_FORMAT)])
+	if graphDate.strftime(const.DATA_DATE_FORMAT) in covidArray:
+		x.append(graphDate.strftime(const.GRAPH_DATE_FORMAT))
+		y.append(covidArray[graphDate.strftime(const.DATA_DATE_FORMAT)])
 
 figure(num=None, figsize=(16, 9), dpi=100, facecolor='w', edgecolor='k')
 plt.plot(x,y)

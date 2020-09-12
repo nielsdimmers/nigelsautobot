@@ -42,7 +42,11 @@ The requirements can be installed by typing `pip3 install <package name>` into y
 * TODO: Find an additional use for this bot, maybe with temperature sensors
 NOTE: Just that it's in this todo list, doesn't mean it's going to be in the next version.
 
-## Current version: 0.5
+## Current version: 0.5.1
+
+* Fix a but with today's results not being available throwing an exception
+
+## Version 0.5
 
 * Added functionality to create a graph and send it over telegram
 
