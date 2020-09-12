@@ -33,10 +33,24 @@ class Const:
 	TELEGRAM_COMMAND_VERSION = 'version'
 	
 	# The bot version (for in messages or something)
-	BOT_VERSION = '0.5'
+	BOT_VERSION = '0.6'
 	
 	# Message test for bot version
 	BOT_VERSION_TEXT = 'Nigel\'s auto bot version %s'
 	
 	# date format of the graph (usually shorter)
 	GRAPH_DATE_FORMAT = '%d-%m'
+	
+	# Constant name for production mode
+	MODE_PRODUCTION = 'PROD'
+	
+	# Constant name for testing mode
+	MODE_TEST = 'TEST'
+	
+	# Log format template
+	LOG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
+	
+	# history graph filename
+	GRAPH_FILENAME = 'data/historicGraph.png'
+	
+	DEMODATA_FILENAME = 'data/testdataAmersfoort.json'

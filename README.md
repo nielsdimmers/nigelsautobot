@@ -37,12 +37,18 @@ The requirements can be installed by typing `pip3 install <package name>` into y
 
 ## Still to do
 
-* TODO: To have a overall script with commandline arguments, so the application only has to be called from one location
 * TODO: Implement (unit) testing
 * TODO: Find an additional use for this bot, maybe with temperature sensors
 NOTE: Just that it's in this todo list, doesn't mean it's going to be in the next version.
 
-## Current version: 0.5.1
+## Current version: 0.6
+
+* Fixed the reply stuf, now it doesn't quote anymore in groups
+* Added a lot of settings to enable testing, like a default testfile instead of reading in the data and printing messages instead of starting the bot
+* moved a lot of the covid code to a separate covid handler
+* added commandline functionality for '--test' command
+
+## Version 0.5.1
 
 * Fix a but with today's results not being available throwing an exception
 

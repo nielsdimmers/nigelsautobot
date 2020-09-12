@@ -3,6 +3,7 @@
 # @author Niels Dimmers
 import requests
 import logging
+import json
 from datetime import date
 from datetime import timedelta
 from matplotlib import pyplot as plt
@@ -14,17 +15,24 @@ from config import Config
 
 config = Config()
 
-# Set logging level and info
-logging.basicConfig(level=config.LOG_LEVEL,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
 # setup variables
 const = Const();
 covidArray = {}
 
-# Retrieve the covid data from the remote location. It's arount 6Mb so it takes some time
-logging.info('Retrieving the json from the RIVM website, this usually takes a bit of time.')
-covidData = requests.get(const.DATA_JSON_LOCATION).json()
+# Set logging level and info
+logging.basicConfig(level=config.LOG_LEVEL,
+                    format=const.LOG_FORMAT)
+
+if config.RUN_MODE == const.MODE_TEST:
+	# load testing data so it's consistent (yes, this is acutally put in the database.)
+	with open(const.DEMODATA_FILENAME) as json_file:
+		covidData = json.load(json_file)
+else:
+	# Retrieve the covid data from the remote location. It's arount 29Mb so it takes some time
+	logging.info('Retrieving the json from the RIVM website, this usually takes a bit of time.')
+	covidData = requests.get(const.DATA_JSON_LOCATION).json()
+
+
 
 # Loop over the data and add where needed, otherwise create the entire table. This has the
 # disadvantage that the entire dataset is in memory (twice) but the advantage that it greatly
@@ -48,9 +56,15 @@ for infectionDate in covidArray:
 x = [] # dates
 y = [] # infections
 
+anchorDate = date.today()
+
+if config.RUN_MODE == const.MODE_TEST:
+	# In testing mode, there's data at least until Sept 10th, so we want the graph to be for that period
+	anchorDate = date(year=2020,month=9,day=10)
+
 logging.info('Gathering info for the graph')
 for i in range(config.GRAPH_LENGTH,-1,-1):
-	graphDate = date.today() - timedelta(days=i)
+	graphDate = anchorDate - timedelta(days=i)
 	if graphDate.strftime(const.DATA_DATE_FORMAT) in covidArray:
 		x.append(graphDate.strftime(const.GRAPH_DATE_FORMAT))
 		y.append(covidArray[graphDate.strftime(const.DATA_DATE_FORMAT)])
@@ -62,4 +76,4 @@ plt.ylabel("data")
 plt.title('infected per day')
 
 logging.info('Save historic data graph')
-plt.savefig('historicGraph.png')
+plt.savefig(const.GRAPH_FILENAME)

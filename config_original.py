@@ -25,3 +25,6 @@ class Config:
 	
 	# Number of days the graph should be long
 	GRAPH_LENGTH = 21
+	
+	# Run the application in PRODuction or TEST mode
+	MODE = 'TEST'

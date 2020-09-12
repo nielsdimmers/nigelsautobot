@@ -4,6 +4,9 @@
 # @author Niels Dimmers
 import mysql.connector
 from dbconnector import DBConnector
+from config import Config
+
+config = Config()
 
 # load the DB Connector to execute the creates
 db = DBConnector()
