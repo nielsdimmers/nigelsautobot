@@ -28,6 +28,8 @@ The following python packages are required, some of them are installed by defaul
 * `datetime`
 * `local`
 * `python-telegram-bot`
+* `logging`
+* `matplotlib`
 
 The requirements can be installed by typing `pip3 install <package name>` into your terminal, after installing pip3
 
@@ -37,11 +39,14 @@ The requirements can be installed by typing `pip3 install <package name>` into y
 
 * TODO: To have a overall script with commandline arguments, so the application only has to be called from one location
 * TODO: Implement (unit) testing
-* TODO: Add some graphs
 * TODO: Find an additional use for this bot, maybe with temperature sensors
 NOTE: Just that it's in this todo list, doesn't mean it's going to be in the next version.
 
-## Current version: 0.4
+## Current version: 0.5
+
+* Added functionality to create a graph and send it over telegram
+
+## Version 0.4
 
 * Locales are a pain in the dark place, so moved it to the config. You can pick your own poison now.
 * Use the telegram bot context, so that it is future proof (honestly, I just got annoyed by the error messages)

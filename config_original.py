@@ -22,3 +22,6 @@ class Config:
 	
 	# Good to have different on different environments
 	LOG_LEVEL = logging.INFO
+	
+	# Number of days the graph should be long
+	GRAPH_LENGTH = 21

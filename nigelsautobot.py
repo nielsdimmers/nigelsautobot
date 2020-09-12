@@ -17,7 +17,7 @@ locale.setlocale(locale.LC_TIME, config.LOCALE)
 
 # Set logging level and info
 logging.basicConfig(level=config.LOG_LEVEL,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+                    format='%(asctime)s - %(levelname)s - %(message)s')
                     
 # Get the covid data for the given date
 # @param compareDate the datetime record to get the covid data for
@@ -46,6 +46,7 @@ def getCovidData(update, context):
 	
 	# Send the response
 	update.message.reply_text(responseMessage)
+	update.message.reply_photo(open('./historicGraph.png','rb'))
 
 # Set up the listener
 def main():

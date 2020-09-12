@@ -3,6 +3,11 @@
 # @author Niels Dimmers
 import requests
 import logging
+from datetime import date
+from datetime import timedelta
+from matplotlib import pyplot as plt
+from matplotlib.pyplot import figure
+
 from dbconnector import DBConnector
 from const import Const
 from config import Config
@@ -36,5 +41,24 @@ logging.info('Start the DB connector and add the results to the database')
 db = DBConnector()
 
 # Push it all to database.
-for date in covidArray:
-	db.updateDailyInfected(date,covidArray[date])
+for infectionDate in covidArray:
+	db.updateDailyInfected(infectionDate,covidArray[infectionDate])
+	
+# Since all the data is here, let's try to make a graph.
+x = [] # dates
+y = [] # infections
+
+logging.info('Gathering info for the graph')
+for i in range(config.GRAPH_LENGTH,-1,-1):
+	graphDate = date.today() - timedelta(days=i)
+	x.append(graphDate.strftime(const.GRAPH_DATE_FORMAT))
+	y.append(covidArray[graphDate.strftime(const.DATA_DATE_FORMAT)])
+
+figure(num=None, figsize=(16, 9), dpi=100, facecolor='w', edgecolor='k')
+plt.plot(x,y)
+plt.xlabel("infections")
+plt.ylabel("data")
+plt.title('infected per day')
+
+logging.info('Save historic data graph')
+plt.savefig('historicGraph.png')

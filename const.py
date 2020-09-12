@@ -33,7 +33,10 @@ class Const:
 	TELEGRAM_COMMAND_VERSION = 'version'
 	
 	# The bot version (for in messages or something)
-	BOT_VERSION = '0.4'
+	BOT_VERSION = '0.5'
 	
 	# Message test for bot version
 	BOT_VERSION_TEXT = 'Nigel\'s auto bot version %s'
+	
+	# date format of the graph (usually shorter)
+	GRAPH_DATE_FORMAT = '%d-%m'
