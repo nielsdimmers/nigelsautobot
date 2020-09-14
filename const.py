@@ -15,6 +15,8 @@ class Const:
 	# the python date formatted date format as used in the data
 	DATA_DATE_FORMAT = '%Y-%m-%d'
 	
+	SQL_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
+	
 	# Snippet sent out when the amount of infected of today is not yet known
 	DATA_UNKNOWN = 'nog niet bekend'
 	
@@ -27,10 +29,14 @@ class Const:
 	# Total infected message
 	INFECTED_MESSAGE = 'Het aantal nieuwe corona zieken gisteren gemeld was: %s, het aantal van vandaag is: %s'
 	
+	TEMPERATURE_MESSAGE = 'De huidige temperatuur in Amersfoort is: %s°C'
+	
 	# The command to invoke the infected bod
 	TELEGRAM_COMMAND_COVID = 'covid'
 	
 	TELEGRAM_COMMAND_VERSION = 'version'
+	
+	TELEGRAM_COMMAND_TEMPERATURE = 'temp'
 	
 	# The bot version (for in messages or something)
 	BOT_VERSION = '0.6'
@@ -53,4 +59,5 @@ class Const:
 	# history graph filename
 	GRAPH_FILENAME = 'data/historicGraph.png'
 	
+	# Filename location of the demo data
 	DEMODATA_FILENAME = 'data/testdataAmersfoort.json'

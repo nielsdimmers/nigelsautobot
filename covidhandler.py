@@ -48,4 +48,4 @@ class CovidHandler:
 	
 		# Send the response
 		update.message.reply_text(self.generateCovidResponseMessage(), quote=False)
-		update.message.reply_photo(open('./'+const.GRAPH_FILENAME,'rb'), quote=False)
+		update.message.reply_photo(open('./'+self.const.GRAPH_FILENAME,'rb'), quote=False)

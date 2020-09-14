@@ -20,7 +20,8 @@ It cannot be used on its own, you need to do the following:
 5. Create a copy of config_original.py to config.py and fill in the values of step (1), and (3)
 6. Run createtables.py once
 7. Configure to run refreshCovidData.py on a regular basis, usually daily after the information is released
-8. Start nigelsautobot.py which is the actual bot
+8. Configure to run logTemperature.py regularly as well, usually every 15 minutes.
+9. Start nigelsautobot.py which is the actual bot
 
 # <a name="requirements"></a>Requirements
 The following python packages are required, some of them are installed by default:
@@ -41,7 +42,14 @@ The requirements can be installed by typing `pip3 install <package name>` into y
 * TODO: Find an additional use for this bot, maybe with temperature sensors
 NOTE: Just that it's in this todo list, doesn't mean it's going to be in the next version.
 
-## Current version: 0.6
+## Current version: 0.7
+
+This version requires some new config information and a re-run of createtables.py. Also, setup to run logTemperature about every 15 minutes.
+
+* Set up and implemented first unit tests (refreshCovidData and covid handler).
+* Added the command '/temp' to the bot to return temperature information, which should be updated regularly by the logTemperature .
+
+## Version 0.6
 
 * Fixed the reply stuf, now it doesn't quote anymore in groups
 * Added a lot of settings to enable testing, like a default testfile instead of reading in the data and printing messages instead of starting the bot

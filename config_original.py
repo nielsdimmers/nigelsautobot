@@ -27,4 +27,13 @@ class Config:
 	GRAPH_LENGTH = 21
 	
 	# Run the application in PRODuction or TEST mode
-	MODE = 'TEST'
+	RUN_MODE = 'TEST'
+	
+	
+	
+	# If any commandline argument overrule the config, the global vars need to be overruled in the init
+	def __init__(self):
+		for command in sys.argv:
+			if command == '--test':
+				self.RUN_MODE = 'TEST'
+				self.LOG_LEVEL = logging.DEBUG

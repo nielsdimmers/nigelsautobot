@@ -52,6 +52,16 @@ class DBConnector:
 			query = 'UPDATE dailyInfected SET infected = %s WHERE date =\'%s\'' % (infected, date)
 		self.executeQuery(query)
 		self.executeQuery('COMMIT')
+	
+	def insertTemperatureLog(self,date,temperature):
+		query = 'INSERT INTO temperatureLog (date,temperature) VALUES (\'%s\',%s)' % (date.strftime(self.const.SQL_DATE_FORMAT), temperature) # self.const.DATA_DATE_FORMAT
+		self.executeQuery(query)
+		self.executeQuery('COMMIT')
+		
+	def getLatestTemperature(self):
+		query = 'SELECT temperature FROM temperatureLog WHERE date = (SELECT max(date) FROM temperatureLog)'
+		temp = self.executeQuery(query, returnResult=True)
+		return temp[0][0]
 
 	# Get the number of infected for the given date
 	# @param date the date to get the number of infected for.

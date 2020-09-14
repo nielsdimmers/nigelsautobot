@@ -7,6 +7,7 @@ import logging
 from config import Config
 from const import Const
 from covidhandler import CovidHandler
+from temperaturehandler import TemperatureHandler
 
 # Config and setup
 const = Const()
@@ -18,6 +19,8 @@ logging.basicConfig(level=config.LOG_LEVEL,
                     format=const.LOG_FORMAT)
 
 covidHandler = CovidHandler()
+
+temperatureHandler = TemperatureHandler()
 
 # generate version response, for testing purposes in separate function.
 def generateVersionResponse():
@@ -33,6 +36,7 @@ def main():
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler(const.TELEGRAM_COMMAND_COVID,covidHandler.getCovidData), True)
 	dp.add_handler(CommandHandler(const.TELEGRAM_COMMAND_VERSION,getVersion), True)
+	dp.add_handler(CommandHandler(const.TELEGRAM_COMMAND_TEMPERATURE,temperatureHandler.getTemperature), True)	
 	logging.info('Starting polling for commands')
 	updater.start_polling()
 	updater.idle()
