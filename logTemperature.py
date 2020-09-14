@@ -31,8 +31,8 @@ class LogTemperature:
 		temperatureData = db.getTemperatureGraphData()
 		x = [] # times
 		y = [] # temps
-		for i in range(0,len(temperatureData),1):
-			x.append(temperatureData[i][0].strftime('%H:%M'))
+		for i in range(len(temperatureData)-1,-1,-1):
+			x.append(temperatureData[i][0].strftime(self.const.TEMPERATURE_GRAPH_DATE_FORMAT))
 			y.append(temperatureData[i][1])
 		
 		figure(num=None, figsize=(16, 9), dpi=100, facecolor='w', edgecolor='k')
@@ -47,5 +47,5 @@ class LogTemperature:
 	
 if __name__ == '__main__':
 	temperatureLogger = LogTemperature()
-	temperatureLogger.retrieveTemperatureData()
+	#temperatureLogger.retrieveTemperatureData()
 	temperatureLogger.createGraph()
