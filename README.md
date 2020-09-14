@@ -40,9 +40,16 @@ The requirements can be installed by typing `pip3 install <package name>` into y
 
 * TODO: Implement (unit) testing
 * TODO: Find an additional use for this bot, maybe with temperature sensors
+* TODO: Refactor the graph creation out of logTemperature and refreshCovidData
+* TODO: See if you can refactor dbconnector, it's starting to get quite complicated and long
 NOTE: Just that it's in this todo list, doesn't mean it's going to be in the next version.
 
-## Current version: 0.7
+## Current version: 0.8
+
+* Fixed version number and missing information in the configuration file
+* Added temperature graph over period of time
+
+## Version 0.7
 
 This version requires some new config information and a re-run of createtables.py. Also, setup to run logTemperature about every 15 minutes.
 

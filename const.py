@@ -29,7 +29,7 @@ class Const:
 	# Total infected message
 	INFECTED_MESSAGE = 'Het aantal nieuwe corona zieken gisteren gemeld was: %s, het aantal van vandaag is: %s'
 	
-	TEMPERATURE_MESSAGE = 'De huidige temperatuur in Amersfoort is: %s°C'
+	TEMPERATURE_MESSAGE = 'Het laatste meetmoment is %s en toen was de temperatuur in Amersfoort: %s°C. Hierna volgt een grafiek met de temperatuur over de afgelopen tijd.'
 	
 	# The command to invoke the infected bod
 	TELEGRAM_COMMAND_COVID = 'covid'
@@ -39,7 +39,7 @@ class Const:
 	TELEGRAM_COMMAND_TEMPERATURE = 'temp'
 	
 	# The bot version (for in messages or something)
-	BOT_VERSION = '0.6'
+	BOT_VERSION = '0.8'
 	
 	# Message test for bot version
 	BOT_VERSION_TEXT = 'Nigel\'s auto bot version %s'
@@ -58,6 +58,13 @@ class Const:
 	
 	# history graph filename
 	GRAPH_FILENAME = 'data/historicGraph.png'
+	
+	# temperature graph filename
+	TEMPERATURE_GRAPH_FILENAME = 'data/temperatureGraph.png'
+	
+	TEMPERATURE_GRAPH_DATE_FORMAT = '%H:%M'
+	
+	TEMPERATURE_MESSAGE_DATE_FORMAT = '%A %-d %B %Y %H:%M'
 	
 	# Filename location of the demo data
 	DEMODATA_FILENAME = 'data/testdataAmersfoort.json'

@@ -53,15 +53,26 @@ class DBConnector:
 		self.executeQuery(query)
 		self.executeQuery('COMMIT')
 	
+	# Insert a new temperature log record
+	# @param date the date for this temperature record
+	# @param temperature the temperature for this record.
 	def insertTemperatureLog(self,date,temperature):
 		query = 'INSERT INTO temperatureLog (date,temperature) VALUES (\'%s\',%s)' % (date.strftime(self.const.SQL_DATE_FORMAT), temperature) # self.const.DATA_DATE_FORMAT
 		self.executeQuery(query)
 		self.executeQuery('COMMIT')
-		
+	
+	# Get the most recent temperature record for the textbased information
+	# @result most recent temperature record together with the datetime it was logged.
 	def getLatestTemperature(self):
-		query = 'SELECT temperature FROM temperatureLog WHERE date = (SELECT max(date) FROM temperatureLog)'
+		query = 'SELECT date,temperature FROM temperatureLog WHERE date = (SELECT max(date) FROM temperatureLog)'
 		temp = self.executeQuery(query, returnResult=True)
-		return temp[0][0]
+		return temp
+		
+	# Get the most recent X temperature records for the graph information
+	# @result an database connector result list with datetime-temperature values of the data
+	def getTemperatureGraphData(self):
+		query = 'SELECT date,temperature FROM temperatureLog ORDER BY date DESC LIMIT %s' % self.config.TEMPERATURE_GRAPH_LIMIT
+		return self.executeQuery(query, returnResult=True)
 
 	# Get the number of infected for the given date
 	# @param date the date to get the number of infected for.
