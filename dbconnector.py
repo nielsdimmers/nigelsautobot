@@ -44,12 +44,12 @@ class DBConnector:
 	# a value does not exist it is inserted.
 	# @param date the date to insert or update (unique key)
 	# @param infected the infected count to set it to.
-	def updateDailyInfected(self,date, infected):
+	def updateDailyInfected(self,date, infected, hospitalised, deceased):
 		query = 'SELECT * FROM dailyInfected WHERE date = \'%s\'' % date
 		if self.getCount(query) == 0:
-			query = 'INSERT INTO dailyInfected (date,infected) VALUES (\'%s\',%s)' % (date, infected)
+			query = 'INSERT INTO dailyInfected (date,infected,hospitalised,deceased) VALUES (\'%s\',%s,%s,%s)' % (date, infected, hospitalised, deceased)
 		else:
-			query = 'UPDATE dailyInfected SET infected = %s WHERE date =\'%s\'' % (infected, date)
+			query = 'UPDATE dailyInfected SET infected = %s, hospitalised = %s, deceased = %s WHERE date =\'%s\'' % (infected, hospitalised, deceased, date)
 		self.executeQuery(query)
 		self.executeQuery('COMMIT')
 	
@@ -77,10 +77,10 @@ class DBConnector:
 	# Get the number of infected for the given date
 	# @param date the date to get the number of infected for.
 	def getDailyInfected(self,date):
-		query = 'SELECT date,infected FROM dailyInfected WHERE date =\'%s\'' % date
+		query = 'SELECT date,infected,hospitalised,deceased FROM dailyInfected WHERE date =\'%s\'' % date
 		result = self.executeQuery(query, True)
 		if len(result) > 0:
-			return result[0][1]
+			return result[0]
 		else:
 			return self.const.DATA_UNKNOWN
 	

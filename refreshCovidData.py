@@ -40,13 +40,19 @@ class CovidDataRefresher:
 	# reduces SQL communication compared to saving it directly to SQL.		
 	def addByDay(self, covidData):
 		logging.info('Calculating results')
-		covidArray = {}
+		covidArray = {} # Subarray is: Reported, hospitalised, deceased
 		for rivmData in covidData:
 			if rivmData[self.const.DATA_PUBLICATION_DATE] in covidArray:
-				covidArray[rivmData[self.const.DATA_PUBLICATION_DATE]] += int(rivmData[self.const.DATA_REPORTED_CASES])
+				covidArray[rivmData[self.const.DATA_PUBLICATION_DATE]][0] += int(rivmData[self.const.DATA_REPORTED_CASES])
+				covidArray[rivmData[self.const.DATA_PUBLICATION_DATE]][1] += int(rivmData[self.const.DATA_HOSPITALISED])
+				covidArray[rivmData[self.const.DATA_PUBLICATION_DATE]][2] += int(rivmData[self.const.DATA_DECEASED])
 			else:
-				covidArray[rivmData[self.const.DATA_PUBLICATION_DATE]] = int(rivmData[self.const.DATA_REPORTED_CASES])
+				covidArray[rivmData[self.const.DATA_PUBLICATION_DATE]] = [int(rivmData[self.const.DATA_REPORTED_CASES]),int(rivmData[self.const.DATA_HOSPITALISED]), int(rivmData[self.const.DATA_DECEASED])]
 		return covidArray
+		
+#	self.const.DATA_DECEASED = 'Deceased'
+	
+#	self.const.DATA_HOSPITALISED = 'Hospital_admission'
 	
 	def fillDB(self, covidArray):
 		logging.info('Start the DB connector and add the results to the database')
@@ -55,12 +61,24 @@ class CovidDataRefresher:
 
 		# Push it all to database.
 		for infectionDate in covidArray:
-			db.updateDailyInfected(infectionDate,covidArray[infectionDate])
+			db.updateDailyInfected(infectionDate,covidArray[infectionDate][0],covidArray[infectionDate][1],covidArray[infectionDate][2])
+
+	def createGraphFile(self,x,y,xlabel,ylabel,graphTitle, graphFileName):
+		figure(num=None, figsize=(16, 9), dpi=100, facecolor='w', edgecolor='k')
+		plt.plot(x,y)
+		plt.xlabel(xlabel)
+		plt.ylabel(ylabel)
+		plt.title(graphTitle)
+		logging.info('Save historic data graph %s' % graphTitle)
+		plt.savefig(graphFileName)
+		
 
 	def createGraph(self,covidArray):
 		# Since all the data is here, let's try to make a graph.
 		x = [] # dates
-		y = [] # infections
+		infe = [] # infections
+		hosp = [] # hospitalisations
+		dece = [] # deceased
 
 		anchorDate = date.today()
 
@@ -73,16 +91,19 @@ class CovidDataRefresher:
 			graphDate = anchorDate - timedelta(days=i)
 			if graphDate.strftime(self.const.DATA_DATE_FORMAT) in covidArray:
 				x.append(graphDate.strftime(self.const.GRAPH_DATE_FORMAT))
-				y.append(covidArray[graphDate.strftime(self.const.DATA_DATE_FORMAT)])
+				infe.append(covidArray[graphDate.strftime(self.const.DATA_DATE_FORMAT)][0])
+				hosp.append(covidArray[graphDate.strftime(self.const.DATA_DATE_FORMAT)][1])
+				dece.append(covidArray[graphDate.strftime(self.const.DATA_DATE_FORMAT)][2])
+				
+		infectedGraphTitle = 'infected per day (%s)' % anchorDate.strftime(self.const.GRAPH_TITLE_DATE_FORMAT)
+		hospitalisedGraphTitle = 'hospitalised per day (%s)' % anchorDate.strftime(self.const.GRAPH_TITLE_DATE_FORMAT)
+		deceasedGraphTitle = 'deceased per day (%s)' % anchorDate.strftime(self.const.GRAPH_TITLE_DATE_FORMAT)
+		
+		self.createGraphFile(x,infe,'infections','data',infectedGraphTitle,self.const.GRAPH_FILENAME)
+		self.createGraphFile(x,hosp,'hospitalisations','data',hospitalisedGraphTitle,self.const.GRAPH_HOSIPITAL_FILENAME)
+		self.createGraphFile(x,dece,'deaths','data',deceasedGraphTitle,self.const.GRAPH_DECEASED_FILENAME)		
 
-		figure(num=None, figsize=(16, 9), dpi=100, facecolor='w', edgecolor='k')
-		plt.plot(x,y)
-		plt.xlabel("infections")
-		plt.ylabel("data")
-		plt.title('infected per day')
 
-		logging.info('Save historic data graph')
-		plt.savefig(self.const.GRAPH_FILENAME)
 
 	def updateCovidData(self):
 		covidData = self.retrieveData()

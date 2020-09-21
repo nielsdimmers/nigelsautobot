@@ -43,9 +43,17 @@ The requirements can be installed by typing `pip3 install <package name>` into y
 * TODO: Refactor the graph creation out of logTemperature and refreshCovidData
 * TODO: See if you can refactor dbconnector, it's starting to get quite complicated and long
 * TODO: Add access log: who executed which command?
+* TODO: MIN and MAX temperature in the /temp command
+
 NOTE: Just that it's in this todo list, doesn't mean it's going to be in the next version.
 
-## Current version: 0.8.1
+## Current version: 0.9
+
+* Add /help command to display which commands are available
+* (bugfix): switched axes labels in temp graph
+* Added two graphs to the /covid command: hospitalisations and deceased, including data in the database for that
+
+## Version 0.8.1
 
 * Fixed temperature graph order and time/date display now actually uses const.
 

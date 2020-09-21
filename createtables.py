@@ -17,6 +17,8 @@ TABLES = {}
 TABLES['dailyInfected'] = (
     "CREATE TABLE `dailyInfected` ("
     "  `infected` int(11) NOT NULL,"
+    "  `hospitalised` int(11) DEFAULT 0 NOT NULL,"
+    "  `deceased` int(11) DEFAULT 0 NOT NULL,"
     "  `date` date NOT NULL,"
     "  PRIMARY KEY (`date`)"
     ") ENGINE=InnoDB")

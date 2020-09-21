@@ -2,6 +2,7 @@
 # At this moment, it's just '/covid'
 # @author Niels Dimmers
 from telegram.ext import Updater, InlineQueryHandler, CommandHandler
+import telegram
 from datetime import date
 from datetime import timedelta
 import locale
@@ -33,12 +34,13 @@ class CovidHandler:
 		responseMessage = self.const.INFECTED_MESSAGE_HEADER % date.today().strftime(self.const.INFECTED_MESSAGE_DATE_FORMAT)
 	
 		# Calculate the infected
-		infectedYesterday = str(self.getCovidDataForDate(date.today() - timedelta(days=1)))
-		infectedToday = str(self.getCovidDataForDate(date.today()))
+		covidDataYesterday = self.getCovidDataForDate(date.today() - timedelta(days=1))
+		covidDataToday = self.getCovidDataForDate(date.today())
 	
-		logging.info('Received infected %s today and %s yesterday' % (infectedToday, infectedYesterday))
+		logging.info('Received infected %s today and %s yesterday' % (covidDataToday[1], covidDataYesterday[1]))
 		# Message header content
-		responseMessage += self.const.INFECTED_MESSAGE % (infectedYesterday, infectedToday)
+		responseMessage += self.const.INFECTED_MESSAGE_YESTERDAY % (covidDataYesterday[1], covidDataYesterday[2], covidDataYesterday[3])
+		responseMessage += self.const.INFECTED_MESSAGE % (covidDataToday[1], covidDataToday[2], covidDataToday[3])
 	
 		return responseMessage
 		
@@ -47,5 +49,7 @@ class CovidHandler:
 		logging.info('Executing covid information command')
 	
 		# Send the response
-		update.message.reply_text(self.generateCovidResponseMessage(), quote=False)
+		update.message.reply_text(self.generateCovidResponseMessage(), quote=False, parse_mode=telegram.ParseMode.MARKDOWN_V2)
 		update.message.reply_photo(open('./'+self.const.GRAPH_FILENAME,'rb'), quote=False)
+		update.message.reply_photo(open('./'+self.const.GRAPH_HOSIPITAL_FILENAME,'rb'), quote=False)
+		update.message.reply_photo(open('./'+self.const.GRAPH_DECEASED_FILENAME,'rb'), quote=False)

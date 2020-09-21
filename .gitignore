@@ -1,4 +1,6 @@
 config.py
 __pycache__
-data/historicGraph.png
 data/temperatureGraph.png
+data/deceasedGraph.png
+data/historicInfectionsGraph.png
+data/hospitalisationGraph.png

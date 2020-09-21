@@ -28,7 +28,11 @@ def generateVersionResponse():
 
 def getVersion(update, context):
 	logging.info('Executing version information command')
-	update.message.reply_text(generateVersionResponse())
+	update.message.reply_text(generateVersionResponse(), quote=False)
+	
+def getInfo(update,context):
+	logging.info('Executing information command')
+	update.message.reply_text(const.BOT_INFO, quote=False)
 	
 # Set up the listener
 def main():
@@ -37,6 +41,7 @@ def main():
 	dp.add_handler(CommandHandler(const.TELEGRAM_COMMAND_COVID,covidHandler.getCovidData), True)
 	dp.add_handler(CommandHandler(const.TELEGRAM_COMMAND_VERSION,getVersion), True)
 	dp.add_handler(CommandHandler(const.TELEGRAM_COMMAND_TEMPERATURE,temperatureHandler.getTemperature), True)	
+	dp.add_handler(CommandHandler(const.TELEGRAM_COMMAND_INFO,getInfo), True)	
 	logging.info('Starting polling for commands')
 	updater.start_polling()
 	updater.idle()

@@ -37,8 +37,8 @@ class LogTemperature:
 		
 		figure(num=None, figsize=(16, 9), dpi=100, facecolor='w', edgecolor='k')
 		plt.plot(x,y)
-		plt.xlabel("Temperature")
-		plt.ylabel("Time")
+		plt.xlabel("Time")
+		plt.ylabel("Temperature")
 		plt.title('Temperature over time')
 
 		logging.info('Save historic data graph for temperature')
@@ -47,5 +47,5 @@ class LogTemperature:
 	
 if __name__ == '__main__':
 	temperatureLogger = LogTemperature()
-	#temperatureLogger.retrieveTemperatureData()
+	temperatureLogger.retrieveTemperatureData()
 	temperatureLogger.createGraph()
