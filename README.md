@@ -47,7 +47,13 @@ The requirements can be installed by typing `pip3 install <package name>` into y
 
 NOTE: Just that it's in this todo list, doesn't mean it's going to be in the next version.
 
-## Current version: 0.10
+## Current version: 0.10a
+
+* (bugfix) Apparently, the markup language of the covid message got a bit scrambled
+* Added some more flexibility in the "data is not know" area of covid.
+* Added a graph information message to covid message
+
+## Version 0.10
 
 NOTE: Upgrading from before this version to this version or later? You need another column in your temperature table. Execute the following SQL to add it: 
 

@@ -23,7 +23,13 @@ class Const:
 	SQL_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 	
 	# Snippet sent out when the amount of infected of today is not yet known
-	DATA_UNKNOWN = 'nog niet bekend'
+	DATA_UNKNOWN = 'Het aantal besmettingen van %s is niet bekend\.'
+	
+	DATA_UNKNOWN_YESTERDAY = 'gisteren'
+	
+	DATA_UNKNOWN_TODAY = 'vandaag'
+	
+	COVID_GRAPH_MESSAGE = ' Hierna volgen grafieken van de recente besmettingen, ziekenhuis opnamen en overlijdens ten gevolge van COVID\-19\.'
 	
 	# Message header, %s is the current date
 	INFECTED_MESSAGE_HEADER = '*COVID\-19 informatie voor %s:*\n'
@@ -32,9 +38,9 @@ class Const:
 	INFECTED_MESSAGE_DATE_FORMAT = '%A %-d %B %Y'
 	
 	# Total infected message
-	INFECTED_MESSAGE = 'Het aantal corona besmettingen van vandaag is: %s, er zijn %s mensen in het ziekenhuis opgenomen en %s mensen aan corona overleden.'
+	INFECTED_MESSAGE = 'Het aantal corona besmettingen van vandaag is: %s, er zijn %s mensen in het ziekenhuis opgenomen en %s mensen aan corona overleden\.'
 	
-	INFECTED_MESSAGE_YESTERDAY = 'Gisteren waren er %s besmettingen, zijn er %s mensen in het ziekenhuis opgenomen en %s mensen aan corona overleden.\n'
+	INFECTED_MESSAGE_YESTERDAY = 'Gisteren waren er %s besmettingen, zijn er %s mensen in het ziekenhuis opgenomen en %s mensen aan corona overleden\.\n'
 	
 	TEMPERATURE_MESSAGE = 'Het laatste meetmoment is %s en toen was de temperatuur in Amersfoort: %s°C. Het koudste moment tot nu toe vandaag was om %s en toen was het %s°C, het warmste moment was om %s en toen was het %s°C.'
 	
@@ -54,7 +60,7 @@ class Const:
 	TELEGRAM_COMMAND_INFO = 'help'
 	
 	# The bot version (for in messages or something)
-	BOT_VERSION = '0.9'
+	BOT_VERSION = '0.10a'
 	
 	# Message test for bot version
 	BOT_VERSION_TEXT = 'Nigel\'s auto bot version %s'

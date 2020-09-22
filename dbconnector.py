@@ -94,7 +94,7 @@ class DBConnector:
 		if len(result) > 0:
 			return result[0]
 		else:
-			return self.const.DATA_UNKNOWN
+			return ''
 	
 	# Close the database connection
 	def __del__(self):

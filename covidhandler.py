@@ -37,11 +37,18 @@ class CovidHandler:
 		covidDataYesterday = self.getCovidDataForDate(date.today() - timedelta(days=1))
 		covidDataToday = self.getCovidDataForDate(date.today())
 	
-		logging.info('Received infected %s today and %s yesterday' % (covidDataToday[1], covidDataYesterday[1]))
 		# Message header content
-		responseMessage += self.const.INFECTED_MESSAGE_YESTERDAY % (covidDataYesterday[1], covidDataYesterday[2], covidDataYesterday[3])
-		responseMessage += self.const.INFECTED_MESSAGE % (covidDataToday[1], covidDataToday[2], covidDataToday[3])
-	
+		if covidDataYesterday != '':
+			logging.info('Received infected %s yesterday ' % covidDataYesterday[1])
+			responseMessage += self.const.INFECTED_MESSAGE_YESTERDAY % (covidDataYesterday[1], covidDataYesterday[2], covidDataYesterday[3])
+		else:
+						responseMessage += self.const.DATA_UNKNOWN % self.const.DATA_UNKNOWN_YESTERDAY
+		if covidDataToday != '':
+			logging.info('Received infected %s today ' % covidDataToday[1])
+			responseMessage += self.const.INFECTED_MESSAGE % (covidDataToday[1], covidDataToday[2], covidDataToday[3])
+		else:
+			responseMessage += self.const.DATA_UNKNOWN % self.const.DATA_UNKNOWN_TODAY
+		responseMessage += self.const.COVID_GRAPH_MESSAGE
 		return responseMessage
 		
 	# Respond to the message with the covid data message
