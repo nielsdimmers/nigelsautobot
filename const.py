@@ -32,11 +32,17 @@ class Const:
 	INFECTED_MESSAGE_DATE_FORMAT = '%A %-d %B %Y'
 	
 	# Total infected message
-	INFECTED_MESSAGE = 'Het aantal corona besmettingen van vandaag is: %s, er zijn %s mensen in het ziekenhuis opgenomen en %s mensen aan corona overleden\.'
+	INFECTED_MESSAGE = 'Het aantal corona besmettingen van vandaag is: %s, er zijn %s mensen in het ziekenhuis opgenomen en %s mensen aan corona overleden.'
 	
-	INFECTED_MESSAGE_YESTERDAY = 'Gisteren waren er %s besmettingen, zijn er %s mensen in het ziekenhuis opgenomen en %s mensen aan corona overleden\.\n'
+	INFECTED_MESSAGE_YESTERDAY = 'Gisteren waren er %s besmettingen, zijn er %s mensen in het ziekenhuis opgenomen en %s mensen aan corona overleden.\n'
 	
-	TEMPERATURE_MESSAGE = 'Het laatste meetmoment is %s en toen was de temperatuur in Amersfoort: %s°C. Hierna volgt een grafiek met de temperatuur over de afgelopen tijd.'
+	TEMPERATURE_MESSAGE = 'Het laatste meetmoment is %s en toen was de temperatuur in Amersfoort: %s°C. Het koudste moment tot nu toe vandaag was om %s en toen was het %s°C, het warmste moment was om %s en toen was het %s°C.'
+	
+	TEMPERATURE_MESSAGE_NOMINMAX = 'Het laatste meetmoment is %s en toen was de temperatuur in Amersfoort: %s°C.'
+	
+	TEMPERATURE_MESSAGE_ALERT = '\nOp dit tijdstip geldt een weer alarm:\n%s'
+	
+	TEMPERATURE_MESSAGE_CLOSURE = '\nHierna volgt een grafiek met de temperatuur over de afgelopen tijd.'
 	
 	# The command to invoke the infected bod
 	TELEGRAM_COMMAND_COVID = 'covid'
@@ -80,6 +86,8 @@ class Const:
 	TEMPERATURE_GRAPH_DATE_FORMAT = '%H:%M'
 	
 	TEMPERATURE_MESSAGE_DATE_FORMAT = '%A %-d %B %Y %H:%M'
+	
+	TEMPERATURE_MESSAGE_MINMAX_DATE_FORMAT = '%H:%M'
 	
 	# Filename location of the demo data
 	DEMODATA_FILENAME = 'data/testdataAmersfoort.json'

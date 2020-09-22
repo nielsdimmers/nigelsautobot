@@ -23,7 +23,10 @@ class LogTemperature:
 	def retrieveTemperatureData(self):
 		temperatureData = requests.get(self.config.DATA_KNMI_JSON_LOCATION).json()
 		db = DBConnector()
-		db.insertTemperatureLog(datetime.now(),temperatureData['liveweer'][0]['temp'])
+		alerttext = ''
+		if temperatureData['liveweer'][0]['alarm'] == 1:
+			alerttext = temperatureData['liveweer'][0]['alarmtxt']
+		db.insertTemperatureLog(datetime.now(),temperatureData['liveweer'][0]['temp'],alerttext)
 	
 	# Create the graph to send the temperature information
 	def createGraph(self):

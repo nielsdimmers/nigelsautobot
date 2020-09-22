@@ -56,18 +56,30 @@ class DBConnector:
 	# Insert a new temperature log record
 	# @param date the date for this temperature record
 	# @param temperature the temperature for this record.
-	def insertTemperatureLog(self,date,temperature):
-		query = 'INSERT INTO temperatureLog (date,temperature) VALUES (\'%s\',%s)' % (date.strftime(self.const.SQL_DATE_FORMAT), temperature) # self.const.DATA_DATE_FORMAT
+	def insertTemperatureLog(self,date,temperature,alerttext):
+		query = 'INSERT INTO temperatureLog (date,temperature,alerttext) VALUES (\'%s\',%s,\'%s\')' % (date.strftime(self.const.SQL_DATE_FORMAT), temperature, alerttext) # self.const.DATA_DATE_FORMAT
 		self.executeQuery(query)
 		self.executeQuery('COMMIT')
 	
 	# Get the most recent temperature record for the textbased information
 	# @result most recent temperature record together with the datetime it was logged.
 	def getLatestTemperature(self):
-		query = 'SELECT date,temperature FROM temperatureLog WHERE date = (SELECT max(date) FROM temperatureLog)'
+		query = 'SELECT date,temperature,alerttext FROM temperatureLog WHERE date = (SELECT max(date) FROM temperatureLog)'
 		temp = self.executeQuery(query, returnResult=True)
 		return temp
+	
+	# Get today's maximum temperature
+	# @result max temperature record with the datetime it was logged
+	def getMaxTemperature(self):
+		query = 'SELECT date,temperature FROM temperatureLog WHERE date >= CURDATE() AND temperature = (SELECT MAX(temperature) FROM temperatureLog WHERE date >= CURDATE())'
+		return self.executeQuery(query, returnResult=True)
 		
+	# Get today's minimum temperature
+	# @result min temperature record with the datetime it was logged
+	def getMinTemperature(self):
+		query = 'SELECT date,temperature FROM temperatureLog WHERE date >= CURDATE() AND temperature = (SELECT MIN(temperature) FROM temperatureLog WHERE date >= CURDATE())'
+		return self.executeQuery(query, returnResult=True)
+	
 	# Get the most recent X temperature records for the graph information
 	# @result an database connector result list with datetime-temperature values of the data
 	def getTemperatureGraphData(self):

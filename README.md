@@ -38,16 +38,28 @@ The requirements can be installed by typing `pip3 install <package name>` into y
 
 ## Still to do
 
+* TODO: Markdown enabeling for temperature message
 * TODO: Implement (unit) testing
 * TODO: Find an additional use for this bot, maybe with temperature sensors
 * TODO: Refactor the graph creation out of logTemperature and refreshCovidData
 * TODO: See if you can refactor dbconnector, it's starting to get quite complicated and long
 * TODO: Add access log: who executed which command?
-* TODO: MIN and MAX temperature in the /temp command
 
 NOTE: Just that it's in this todo list, doesn't mean it's going to be in the next version.
 
-## Current version: 0.9
+## Current version: 0.10
+
+NOTE: Upgrading from before this version to this version or later? You need another column in your temperature table. Execute the following SQL to add it: 
+
+`ALTER TABLE ``temperatureLog`` ADD COLUMN alerttext TEXT AFTER temperature`
+
+For new systems, this column is added to the table when executing the createtables script.
+
+* (bugfix): switched axis labels for covid graphs
+* Added min/max temperature and times to the temperature message
+* Added alert logging and showing of text when there's a weather alert
+
+## Version 0.9
 
 * Add /help command to display which commands are available
 * (bugfix): switched axes labels in temp graph

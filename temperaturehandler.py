@@ -7,6 +7,7 @@ from dbconnector import DBConnector
 from const import Const
 
 from telegram.ext import Updater, InlineQueryHandler, CommandHandler
+import telegram
 
 class TemperatureHandler:
 	
@@ -19,8 +20,24 @@ class TemperatureHandler:
 	def generateTempResponseMessage(self):
 		dbconn = DBConnector()
 		temperatureData = dbconn.getLatestTemperature()
+		minTemperatureData = dbconn.getMinTemperature()
+		maxTemperatureData = dbconn.getMaxTemperature()
 		dateTime = temperatureData[0][0].strftime(self.const.TEMPERATURE_MESSAGE_DATE_FORMAT)
-		return self.const.TEMPERATURE_MESSAGE % (dateTime, temperatureData[0][1])
+		returnMessage = ''
+		
+		if len(maxTemperatureData) > 0 and len(minTemperatureData) > 0:
+			minTime = minTemperatureData[0][0].strftime(self.const.TEMPERATURE_MESSAGE_MINMAX_DATE_FORMAT)
+			maxTime = maxTemperatureData[0][0].strftime(self.const.TEMPERATURE_MESSAGE_MINMAX_DATE_FORMAT)
+			returnMessage = self.const.TEMPERATURE_MESSAGE % (dateTime, temperatureData[0][1], minTime, minTemperatureData[0][1], maxTime, maxTemperatureData[0][1])
+		else:
+			returnMessage = self.const.TEMPERATURE_MESSAGE_NOMINMAX % (dateTime, temperatureData[0][1])
+		
+		if temperatureData[0][2] is not None and len(temperatureData[0][2]) > 1:
+			returnMessage += self.const.TEMPERATURE_MESSAGE_ALERT % temperatureData[0][2]
+		
+		returnMessage += self.const.TEMPERATURE_MESSAGE_CLOSURE
+		
+		return returnMessage
 	
 	# Get the response message and send it back to telegram
 	def getTemperature(self, update, context):

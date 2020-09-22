@@ -12,7 +12,6 @@ config = Config()
 db = DBConnector()
 
 # *** TABLES CONTAINING DATA WHICH IS REFRESHED EACH TIME, AND THEREFORE CAN BE DROPPED SAFELY ***
-# Array containing create statements for tables.
 TABLES = {}
 TABLES['dailyInfected'] = (
     "CREATE TABLE `dailyInfected` ("
@@ -40,6 +39,7 @@ PERSISTENTTABLES['temperatureLog'] = (
     "CREATE TABLE `temperatureLog` ("
     "  `temperature` DECIMAL(5,1) NOT NULL,"
     "  `date` datetime NOT NULL,"
+    "	 `alerttext TEXT"
     "  PRIMARY KEY (`date`)"
     ") ENGINE=InnoDB")
 

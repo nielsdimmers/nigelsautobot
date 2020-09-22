@@ -99,9 +99,9 @@ class CovidDataRefresher:
 		hospitalisedGraphTitle = 'hospitalised per day (%s)' % anchorDate.strftime(self.const.GRAPH_TITLE_DATE_FORMAT)
 		deceasedGraphTitle = 'deceased per day (%s)' % anchorDate.strftime(self.const.GRAPH_TITLE_DATE_FORMAT)
 		
-		self.createGraphFile(x,infe,'infections','data',infectedGraphTitle,self.const.GRAPH_FILENAME)
-		self.createGraphFile(x,hosp,'hospitalisations','data',hospitalisedGraphTitle,self.const.GRAPH_HOSIPITAL_FILENAME)
-		self.createGraphFile(x,dece,'deaths','data',deceasedGraphTitle,self.const.GRAPH_DECEASED_FILENAME)		
+		self.createGraphFile(x,infe,'data','infections',infectedGraphTitle,self.const.GRAPH_FILENAME)
+		self.createGraphFile(x,hosp,'data','hospitalisations',hospitalisedGraphTitle,self.const.GRAPH_HOSIPITAL_FILENAME)
+		self.createGraphFile(x,dece,'data','deaths',deceasedGraphTitle,self.const.GRAPH_DECEASED_FILENAME)		
 
 
 
