@@ -38,7 +38,6 @@ The requirements can be installed by typing `pip3 install <package name>` into y
 
 ## Still to do
 
-* TODO: Markdown enabeling for temperature message
 * TODO: Implement (unit) testing
 * TODO: Find an additional use for this bot, maybe with temperature sensors
 * TODO: Refactor the graph creation out of logTemperature and refreshCovidData
@@ -47,7 +46,15 @@ The requirements can be installed by typing `pip3 install <package name>` into y
 
 NOTE: Just that it's in this todo list, doesn't mean it's going to be in the next version.
 
-## Current version: 0.10a
+## Current version: 0.11
+
+* Cast the autobot into a class so that it can be passed to other functions and called from there as a view
+* Used a commandhandler to have a more generic way of calling commands. The commands are logged now as well (INFO log)
+* Updated the comments in the const file
+* Made the temperature message markdown safe
+* Removed the telegram imports from the handlers, so they now can also be called from elsewhere
+
+## Version 0.10a
 
 * (bugfix) Apparently, the markup language of the covid message got a bit scrambled
 * Added some more flexibility in the "data is not know" area of covid.

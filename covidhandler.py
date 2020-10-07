@@ -1,8 +1,6 @@
 # This class handles the covid related commands
 # At this moment, it's just '/covid'
 # @author Niels Dimmers
-from telegram.ext import Updater, InlineQueryHandler, CommandHandler
-import telegram
 from datetime import date
 from datetime import timedelta
 import locale
@@ -52,11 +50,12 @@ class CovidHandler:
 		return responseMessage
 		
 	# Respond to the message with the covid data message
-	def getCovidData(self, update, context):
+	def getCovidData(self, nigelsAutoBot):
 		logging.info('Executing covid information command')
 	
+		# Markdown in reply_text message: parse_mode=telegram.ParseMode.MARKDOWN_V2
 		# Send the response
-		update.message.reply_text(self.generateCovidResponseMessage(), quote=False, parse_mode=telegram.ParseMode.MARKDOWN_V2)
-		update.message.reply_photo(open('./'+self.const.GRAPH_FILENAME,'rb'), quote=False)
-		update.message.reply_photo(open('./'+self.const.GRAPH_HOSIPITAL_FILENAME,'rb'), quote=False)
-		update.message.reply_photo(open('./'+self.const.GRAPH_DECEASED_FILENAME,'rb'), quote=False)
+		nigelsAutoBot.reply_text(self.generateCovidResponseMessage())
+		nigelsAutoBot.reply_photo('./'+self.const.GRAPH_FILENAME)
+		nigelsAutoBot.reply_photo('./'+self.const.GRAPH_HOSIPITAL_FILENAME)
+		nigelsAutoBot.reply_photo('./'+self.const.GRAPH_DECEASED_FILENAME)

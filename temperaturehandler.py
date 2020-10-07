@@ -1,13 +1,11 @@
 # Handles the temperature command from Telegram, can be executd directly to see the text message
-# @authoer Niels Dimmers
+# @author Niels Dimmers
 import logging
 
 from config import Config
 from dbconnector import DBConnector
 from const import Const
 
-from telegram.ext import Updater, InlineQueryHandler, CommandHandler
-import telegram
 
 class TemperatureHandler:
 	
@@ -40,9 +38,9 @@ class TemperatureHandler:
 		return returnMessage
 	
 	# Get the response message and send it back to telegram
-	def getTemperature(self, update, context):
-		update.message.reply_text(self.generateTempResponseMessage(), quote=False)
-		update.message.reply_photo(open('./'+self.const.TEMPERATURE_GRAPH_FILENAME,'rb'), quote=False)
+	def getTemperature(self, nigelsAutoBot):
+		nigelsAutoBot.reply_text(nigelsAutoBot.escapeString(self.generateTempResponseMessage()))
+		nigelsAutoBot.reply_photo('./'+self.const.TEMPERATURE_GRAPH_FILENAME)
 		
 if __name__ == '__main__':
 	temperaturehandler = TemperatureHandler()
