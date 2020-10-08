@@ -21,7 +21,7 @@ It cannot be used on its own, you need to do the following:
 6. Run createtables.py once
 7. Configure to run refreshCovidData.py on a regular basis, usually daily after the information is released
 8. Configure to run logTemperature.py regularly as well, usually every 15 minutes.
-9. Start nigelsautobot.py which is the actual bot
+9. Start telegramBot.py which is the actual bot
 
 # <a name="requirements"></a>Requirements
 The following python packages are required, some of them are installed by default:
@@ -42,11 +42,16 @@ The requirements can be installed by typing `pip3 install <package name>` into y
 * TODO: Find an additional use for this bot, maybe with temperature sensors
 * TODO: Refactor the graph creation out of logTemperature and refreshCovidData
 * TODO: See if you can refactor dbconnector, it's starting to get quite complicated and long
-* TODO: Add access log: who executed which command?
 
 NOTE: Just that it's in this todo list, doesn't mean it's going to be in the next version.
 
-## Current version: 0.11
+## Current version: 0.12
+
+* Fixed /version and /help not working (related to escaping strings)
+* Made nigelsautobot into a abstract class containing some info, telegramBot is an implementation of that and should be executed from now on to get the same result as with nigelsautobot previously
+* Added a very basic HTML bot, which can be accessed from outside (but it's very rudimentary though!) This needs a new config constant "WEBURL"
+
+## Version 0.11
 
 * Cast the autobot into a class so that it can be passed to other functions and called from there as a view
 * Used a commandhandler to have a more generic way of calling commands. The commands are logged now as well (INFO log)

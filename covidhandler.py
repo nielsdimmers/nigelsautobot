@@ -56,6 +56,6 @@ class CovidHandler:
 		# Markdown in reply_text message: parse_mode=telegram.ParseMode.MARKDOWN_V2
 		# Send the response
 		nigelsAutoBot.reply_text(self.generateCovidResponseMessage())
-		nigelsAutoBot.reply_photo('./'+self.const.GRAPH_FILENAME)
-		nigelsAutoBot.reply_photo('./'+self.const.GRAPH_HOSIPITAL_FILENAME)
-		nigelsAutoBot.reply_photo('./'+self.const.GRAPH_DECEASED_FILENAME)
+		nigelsAutoBot.reply_photo(self.const.GRAPH_FILENAME)
+		nigelsAutoBot.reply_photo(self.const.GRAPH_HOSIPITAL_FILENAME)
+		nigelsAutoBot.reply_photo(self.const.GRAPH_DECEASED_FILENAME)

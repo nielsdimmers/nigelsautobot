@@ -29,6 +29,8 @@ class Config:
 	# Run the application in PRODuction or TEST mode
 	RUN_MODE = 'TEST'
 	
+	WEBURL = '<YOUR WEBSITE URL>'
+	
 	# If the run mode is 'TEST', it's good to set this one to DEBUG so data is displayed on screen by default.
 	# Good to have different on different environments
 	LOG_LEVEL = logging.WARNING

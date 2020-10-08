@@ -47,7 +47,7 @@ class Const:
 	TELEGRAM_COMMAND_PREFIX = '/'
 	
 	# The bot version (for in messages or something)
-	BOT_VERSION = '0.11'
+	BOT_VERSION = '0.12'
 	
 	# Message test for bot version
 	BOT_VERSION_TEXT = 'Nigel\'s auto bot version %s'
